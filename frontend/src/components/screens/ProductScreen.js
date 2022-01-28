@@ -15,7 +15,7 @@ import { listProductsDetails } from "../../actions/productActions";
 import Loader from "../Loader";
 import Message from "../Message";
 
-const ProductScreen = ({ history }) => {
+const ProductScreen = () => {
   const [qty, setQty] = useState(1);
   const dispatch = useDispatch();
   const params = useParams();
