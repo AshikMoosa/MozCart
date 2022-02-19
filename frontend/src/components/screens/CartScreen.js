@@ -16,6 +16,7 @@ import { addToCart, removeFromCart } from "../../actions/cartActions";
 const CartScreen = () => {
   const params = useParams();
   const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const productId = params.id;
   const qty = location.search ? Number(location.search.split("=")[1]) : 1;
@@ -32,6 +33,7 @@ const CartScreen = () => {
     dispatch(removeFromCart(id));
   };
   const checkoutHandler = () => {
+    navigate(`/login?redirect=/shipping`);
     console.log("checkout");
   };
   return (
