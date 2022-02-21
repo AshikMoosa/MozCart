@@ -11,6 +11,7 @@ import ShippingScreen from "./components/screens/ShippingScreen";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PaymentScreen from "./components/screens/PaymentScreen";
+import PlaceOrder from "./components/screens/PlaceOrder";
 
 const App = () => {
   return (
@@ -28,6 +29,7 @@ const App = () => {
             <Route path="/cart" element={<CartScreen />} />
             <Route path="/shipping" element={<ShippingScreen />} />
             <Route path="/payment" element={<PaymentScreen />} />
+            <Route path="/placeorder" element={<PlaceOrder />} />
           </Routes>
         </Container>
       </main>
