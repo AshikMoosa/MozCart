@@ -1,14 +1,18 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { Button, Row, Col, ListGroup, Card, Image } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import Message from "../Message";
 import Loader from "../Loader";
 import CheckoutSteps from "./CheckoutSteps";
+import { createOrder } from "../../actions/orderActions";
 
 const PlaceOrder = () => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //show 2 values after decimal point
   const addDecimals = (num) => {
@@ -27,7 +31,31 @@ const PlaceOrder = () => {
     Number(cart.shippingPrice) +
     Number(cart.taxPrice)
   ).toFixed(2);
-  const placeOrderHandler = () => {};
+
+  const orderCreate = useSelector((state) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+
+  useEffect(() => {
+    if (success) {
+      navigate(`/order/${order._id}`);
+    }
+    //eslint-disable-next-line
+  }, [success]);
+
+  const placeOrderHandler = () => {
+    dispatch(
+      createOrder({
+        orderItems: cart.cartItems,
+        shippingAddress: cart.shippingAddress,
+        paymentMethod: cart.paymentMethod,
+        itemsPrice: cart.itemsPrice,
+        shippingPrice: cart.shippingPrice,
+        taxPrice: cart.taxPrice,
+        totalPrice: cart.totalPrice,
+      })
+    );
+  };
+
   return (
     <>
       <CheckoutSteps step1 step2 step3 step4 />
@@ -111,6 +139,9 @@ const PlaceOrder = () => {
                   <Col>Total</Col>
                   <Col>${cart.totalPrice}</Col>
                 </Row>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                {error && <Message variant="danger">{error}</Message>}
               </ListGroup.Item>
               <ListGroup.Item>
                 <Button
