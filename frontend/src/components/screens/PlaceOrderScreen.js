@@ -7,7 +7,7 @@ import Loader from "../Loader";
 import CheckoutSteps from "./CheckoutSteps";
 import { createOrder } from "../../actions/orderActions";
 
-const PlaceOrder = () => {
+const PlaceOrderScreen = () => {
   const cart = useSelector((state) => state.cart);
   const { shippingAddress } = cart;
 
@@ -161,4 +161,4 @@ const PlaceOrder = () => {
   );
 };
 
-export default PlaceOrder;
+export default PlaceOrderScreen;
